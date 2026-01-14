@@ -21,6 +21,14 @@ const app = express();
 //helps app to read JSON
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    endpoints: ["/allcards"]
+  });
+});
+
+
 //start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
