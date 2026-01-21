@@ -43,7 +43,7 @@ app.post('/addmenuItem', async (req, res) => {
     const { name, price, category, image } = req.body;
     try {
         let connection = await mysql.createConnection(dbConfig);
-        await connection.execute('INSERT INTO cafemenu (name, price, category, image) VALUES (?, ?, ?, ?)', [name, price, category, image]);
+        await connection.execute('INSERT INTO defaultdb.cafemenu (name, price, category, image) VALUES (?, ?, ?, ?)', [name, price, category, image]);
         res.status(201).json({message: 'Menu Item '+name+' added Successfully'});
     }
     catch(err) {
@@ -57,7 +57,7 @@ app.delete('/deletemenuItem/:id', async (req, res) => {
     const menuItemId = req.params.id;
     try {
         let connection = await mysql.createConnection(dbConfig);
-        const [result] = await connection.execute('DELETE FROM cafemenu WHERE id = ?', [menuItemId]);
+        const [result] = await connection.execute('DELETE FROM defaultdb.cafemenu WHERE id = ?', [menuItemId]);
         if (result.affectedRows === 0) {
             return res.status(404).json({message: 'Menu Item not found'});
         }
@@ -75,7 +75,7 @@ app.put('/updatemenuItem/:id', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);
         const [result] = await connection.execute(
-            'UPDATE cafemenu SET name = ?, price = ?, category = ?, image = ? WHERE id = ?',
+            'UPDATE defaultdb.cafemenu SET name = ?, price = ?, category = ?, image = ? WHERE id = ?',
             [name, price, category, image, menuItemId]
         );
         if (result.affectedRows === 0) {
