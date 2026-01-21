@@ -25,7 +25,11 @@ app.listen(port, () => {
 
  
 //routes
+app.get('/', (req, res) => {
+  res.redirect('/allmenu');
+});
  
+
 //get all menu items
 app.get('/allmenu', async (req, res) => {
     try {
